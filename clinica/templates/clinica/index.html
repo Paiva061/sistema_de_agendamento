@@ -1,0 +1,27 @@
+{% extends "clinica/base.html" %}
+{% block title %}Pagina inicial | HealthFlow Pro{% endblock %}
+
+{% block content %}
+<div class="text-center py-10">
+    <h1 class="text-4xl font-extrabold text-blue-900 mb-4">Bem-vindo ao HealthFlow Pro</h1>
+    <p class="text-gray-600 text-lg">Gerenciamento hospitalar de alto nível.</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+    <!-- Card de Médicos -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Corpo Clínico</h3>
+        <p class="text-4xl font-bold text-blue-600 mt-2">{{ qtd_medicos }}</p>
+        <p class="text-gray-500 mt-1">Médicos cadastrados</p>
+        <a href="{% url 'listar_medicos' %}" class="mt-4 inline-block text-blue-600 font-medium hover:underline">Ver todos →</a>
+    </div>
+
+    <!-- Card de Consultas -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Agendamentos</h3>
+        <p class="text-4xl font-bold text-blue-600 mt-2">{{ qtd_consultas }}</p>
+        <p class="text-gray-500 mt-1">Consultas no sistema</p>
+        <a href="{% url 'agenda' %}" class="mt-4 inline-block text-blue-600 font-medium hover:underline">Acessar agenda →</a>
+    </div>
+</div>
+{% endblock content %}

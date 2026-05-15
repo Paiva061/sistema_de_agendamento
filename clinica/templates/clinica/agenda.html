@@ -1,0 +1,45 @@
+{% extends 'clinica/base.html'%}
+{% block title %}Agenda de consultas | HealthFlow Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+    <h1 class="text-2xl font-bold text-slate-800 mb-6">📅 Agenda de Consultas (Próximas)</h1>
+    
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-slate-800 text-white">
+                <!-- No cabeçalho <thead> da tabela -->
+                <th class="p-4 text-center">Ações</th>
+                <tr>
+                    <th class="p-4">Data/Hora</th>
+                    <th class="p-4">Paciente</th>
+                    <th class="p-4">Médico</th>
+                    <th class="p-4">Duração</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for consulta in consultas %}
+                <tr class="border-b hover:bg-slate-50">
+                    <td class="p-4 font-semibold text-blue-600">{{ consulta.data_hora|date:"d/m/Y H:i" }}</td>
+                    <td class="p-4">{{ consulta.paciente_nome }}</td>
+                    <td class="p-4">Dr(a). {{ consulta.medico.nome }}</td>
+                    <td class="p-4 text-gray-500">{{ consulta.duracao_minutos }} min</td>
+                    <td class="p-4 text-center">
+                    <a href="{% url 'editar_consulta' consulta.pk %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    ✏️ Editar
+                    </a>
+                    <a href="{% url 'excluir_consulta' consulta.pk %}" class="text-red-600 hover:text-red-800">
+                        🗑️ Excluir
+                    </a>
+                </td>
+                </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="p-8 text-center text-gray-400">Nenhum agendamento para hoje.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
