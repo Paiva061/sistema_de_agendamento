@@ -3,7 +3,11 @@ from django.utils import timezone
 from .models import Medico, Consulta
 from .forms import ConsultaForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+# Esta função serve como o nosso "validador de crachá"
+def usuario_e_funcionario(user):
+    return user.is_authenticated and user.is_staff
 
 @login_required
 def excluir_consulta(request, pk):
@@ -46,7 +50,9 @@ def listar_medicos(request):
     # Enviamos esses dados para um arquivo HTML (Template)
     return render(request, 'clinica/medicos.html', {'medicos': medicos})
 
+# Agora aplicamos a trava na sua view da agenda
 @login_required
+@user_passes_test(usuario_e_funcionario, login_url='login')
 def agenda_clinica(request): 
     # Pegamos a data/hora exata de agora
     agora = timezone.now()

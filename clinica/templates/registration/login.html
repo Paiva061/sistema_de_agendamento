@@ -1,16 +1,30 @@
 {% extends 'clinica/base.html' %}
 
+{% block title %}Acesso Restrito | HealthFlow Pro{% endblock %}
+
 {% block content %}
-<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Acesso ao HealthFlow</h2>
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200 mt-12">
+    <div class="text-center mb-8">
+        <span class="text-4xl">🔒</span>
+        <h2 class="text-2xl font-bold text-slate-800 mt-2">Portal do Colaborador</h2>
+        <p class="text-sm text-slate-400 mt-1">Insira suas credenciais corporativas para acessar o sistema.</p>
+    </div>
     
-    <form method="post">
+    <form method="post" class="space-y-5">
         {% csrf_token %}
-        <div class="space-y-4">
+        
+        {% if form.errors %}
+            <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-200">
+                Usuário ou senha incorretos. Tente novamente.
+            </div>
+        {% endif %}
+
+        <div>
             {{ form.as_p }}
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded mt-6 hover:bg-blue-700">
-            Entrar no Sistema
+
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+            Acessar Painel
         </button>
     </form>
 </div>
